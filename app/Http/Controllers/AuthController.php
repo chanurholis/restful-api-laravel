@@ -15,30 +15,30 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
+            'name'     => 'required',
+            'email'    => 'required|email',
             'password' => 'required|min:5'
         ]);
 
-        $name = $request->input('name');
-        $email = $request->input('email');
+        $name     = $request->input('name');
+        $email    = $request->input('email');
         $password = $request->input('password');
 
         $user = new User([
-            'name' => $name,
-            'email' => $email,
-            'password' => bcrypt($password)
+            'name'      => $name,
+            'email'     => $email,
+            'password'  => bcrypt($password)
         ]);
 
         if ($user->save()) {
             $user->signin = [
-                'href' => 'api/v1/user/signin',
+                'href'   => 'api/v1/user/signin',
                 'method' => 'POST',
                 'params' => 'email, password'
             ];
             $response = [
-                'msg' => 'User created!',
-                'user' => $user
+                'msg'   => 'User created!',
+                'user'  => $user
             ];
             return response()->json($response, 201);
         }
