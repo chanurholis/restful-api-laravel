@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'MeetingController@index');
+
+Route::get('/meeting/{meeting}', 'MeetingController@show');
+
+Route::delete('/meeting/{meeting}', 'MeetingController@destroy');
